@@ -56,29 +56,48 @@ public class OkeyGame {
         return null;
     }
 
-    /*
+    /* 
+     * Cagan Aksoy
      * TODO: should randomly shuffle the tiles array before game starts
      */
     public void shuffleTiles() {
-        Random index = new Random();
-        Tiles[] temporaryList  = new Tile[tiles.length];
 
-        
-
-
-    public int[] randomIndexCreator(int i){
-        int[] randomIndexList = new int[112];
-        for(int i = 0; i < 112; i++){
-            int randomNumber = index.nextInt(0,112);
-            if(!usedNumbers.contains(randomNumber)){
-                randomIndexList[i] = randomNumber;
-            }
-            else{
-                i--;
-            }
-            usedNumbers.add(randomNumber);
-
+        //Copying Tiles List
+        Tile[] copyTile = new Tile[tiles.length];
+        for(int i = 0; i < tiles.length; i++){
+            copyTile[i] = tiles[i];
         }
+        
+        //Randomly sorted indexes 0-112
+        int[] RandomIndexList = arrayCreatorRandom(tiles.length);
+
+        //Shuffles the original tiles list with the random indexes
+        for(int n = 0; n < tiles.length; n++){
+            tiles[n] = copyTile[RandomIndexList[n]];
+        }
+
+
+    }
+
+    /*  
+     *  Cagan Aksoy
+     *  Creates an array with random sort with the length of the number we enter
+     */
+    public int[] arrayCreatorRandom(int n){
+        ArrayList<Integer> usedNumbers = new ArrayList<>(); 
+        Random index = new Random();
+        int[] randomIndexList = new int[n];
+            for(int i = 0; i < 112; i++){
+                int randomNumber = index.nextInt(0,n);
+                if(!usedNumbers.contains(randomNumber)){
+                    randomIndexList[i] = randomNumber;
+                }
+                else{
+                    i--;
+                }
+                usedNumbers.add(randomNumber);
+            }
+            return randomIndexList;
     }
 
     /*
@@ -111,12 +130,13 @@ public class OkeyGame {
     }
 
     /*
+     * Cagan Aksoy
      * TODO: discards the current player's tile at given index
      * this should set lastDiscardedTile variable and remove that tile from
      * that player's tiles
      */
     public void discardTile(int tileIndex) {
-
+        lastDiscardedTile = players[currentPlayerIndex].getAndRemoveTile(tileIndex);
     }
 
     public void displayDiscardInformation() {
