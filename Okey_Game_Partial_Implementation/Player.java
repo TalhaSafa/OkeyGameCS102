@@ -9,8 +9,12 @@ public class Player {
         numberOfTiles = 0; // currently this player owns 0 tiles, will pick tiles at the beggining of the game
     }
 
-    /*
-     * TODO: removes and returns the tile in given index
+    /**
+     * removes and returns the tile in given index
+     * 
+     * @param index index of the tile that is going to be removed
+     * @return Tile which is removed
+     * @author Talha Safa Kucuk
      */
     public Tile getAndRemoveTile(int index) {
         Tile wantedTile = playerTiles[index];
@@ -26,10 +30,14 @@ public class Player {
         return wantedTile;
     }
 
-    /*
-     * TODO: adds the given tile to the playerTiles in order
+    /**
+     * adds the given tile to the playerTiles in order
      * should also update numberOfTiles accordingly.
      * make sure playerTiles are not more than 15 at any time
+     * 
+     * @param t a tile to be added
+     * @return
+     * @author Talha Safa Kucuk
      */
     public void addTile(Tile t) {
         if(numberOfTiles < 15)
@@ -43,6 +51,7 @@ public class Player {
      * A method to order tiles using Tile.compareTo() method.
      * This method is written in order to order tiles again after adding a new tile.
      * @return
+     * @author Talha Safa Kucuk
      */
     public void orderTiles()
     {
@@ -60,11 +69,13 @@ public class Player {
         }
     }
 
-    /*
-     * TODO: checks if this player's hand satisfies the winning condition
+    /** 
+     * checks if this player's hand satisfies the winning condition
      * to win this player should have 3 chains of length 4, extra tiles
      * does not disturb the winning condition
-     * @return
+     * 
+     * @return boolean of result whether current player is winning or not
+     * @author Talha Safa Kucuk
      */
     public boolean isWinningHand() {
         
