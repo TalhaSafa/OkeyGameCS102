@@ -28,14 +28,52 @@ public class OkeyGame {
         }
     }
 
-    /*
+    /* Eren sucuoğlu, değiştirebilirsiniz.
      * TODO: distributes the starting tiles to the players
      * player at index 0 gets 15 tiles and starts first
      * other players get 14 tiles
      * this method assumes the tiles are already shuffled
      */
     public void distributeTilesToPlayers() {
+        int k = 0;
 
+        for(int i = 1; i <= 56;i++){
+            if(i <= 14){
+
+                players[currentPlayerIndex].playerTiles[k] = tiles[i];
+
+                if(k== 14){
+                    k = 0;
+                    currentPlayerIndex++;
+                }
+            }
+            else if( i > 14 && i <= 28){
+
+                players[currentPlayerIndex].playerTiles[k] = tiles[i];
+
+                if(k == 13){
+                    k = 0;
+                    currentPlayerIndex++;
+                }
+            }
+            else if( i < 28 && i <= 42){
+
+                players[currentPlayerIndex].playerTiles[k] = tiles[i];
+
+                if(k == 13){
+                    k = 0;
+                    currentPlayerIndex++;
+                }
+            }
+            else{
+                players[currentPlayerIndex].playerTiles[k] = tiles[i];
+
+                if(k == 13){
+                    k = 0;
+                    currentPlayerIndex = 0;
+                }
+            }
+        }
     }
 
     /*
@@ -108,7 +146,8 @@ public class OkeyGame {
         return false;
     }
 
-    /*
+    /* 
+     * Eren Sucuoğlu
      * TODO: Pick a tile for the current computer player using one of the following:
      * - picking from the tiles array using getTopTile()
      * - picking from the lastDiscardedTile using getLastDiscardedTile()
@@ -117,6 +156,40 @@ public class OkeyGame {
      */
     public void pickTileForComputer() {
 
+        boolean control = true;
+
+        int j = 0;
+
+        for(int i = 0; i < 14; i++){
+
+            if(lastDiscardedTile.compareTo(players[currentPlayerIndex].getTiles()[i]) == 0){
+
+                getTopTile();
+
+                control = false;
+
+                break;
+            }
+        }
+
+        while(control){
+
+            if(lastDiscardedTile.canFormChainWith(players[currentPlayerIndex].getTiles()[j])){
+
+                getLastDiscardedTile();
+
+                break;
+            }
+            else{
+
+                j++;
+            }
+        }
+
+        if(j == 14){
+
+            getTopTile();
+        }
     }
 
     /*
@@ -124,9 +197,82 @@ public class OkeyGame {
      * this method should print what tile is discarded since it should be
      * known by other players. You may first discard duplicates and then
      * the single tiles and tiles that contribute to the smallest chains.
+     * Eren Sucuoğlu
      */
     public void discardTileForComputer() {
+        boolean control = true;
 
+        for(int i = 0; i < 15;i++){
+            
+
+            int counter = -1;
+
+            for(int j = 0; j < 15;j++){
+
+                if(players[currentPlayerIndex].playerTiles[i].compareTo(players[currentPlayerIndex].playerTiles[j]) == 0){
+
+                    counter++;
+                }
+            }
+            
+            if(counter > 0){
+
+                discardTile(i);
+                control = false;
+
+                break;
+            }
+        } 
+
+        while(control){
+
+            ArrayList <Integer> countArray = countOfChain(players[currentPlayerIndex].playerTiles);
+            int min = 15;
+            int countForIndex = 0;
+
+            for(int k = 0; k < countArray.size(); k++){
+                if( min > countArray.get(k)){
+
+                    min = countArray.get(k);
+                }
+            }
+            for(int i = 0; i < countArray.size(); i++){
+                if(countArray.get(i) == min){
+
+                    System.out.println("The tile " + players[currentPlayerIndex].playerTiles[countForIndex] + "has been discarded.");
+                   
+                    discardTile(countForIndex);
+                    
+                }
+
+                countForIndex += countArray.get(i);
+            }
+
+        }   
+    }
+
+    //Only made for easy application of discardTileForComputer,Eren Sucuoğlu.
+    public ArrayList<Integer> countOfChain(Tile [] array){
+        
+        ArrayList<Integer> countArray = new ArrayList<>();
+
+        for(int i = 0; i < 14;i++){
+            int counter = 0;
+
+            if(array[i].canFormChainWith(array[i+1])){
+
+                for(int j = i+1; j < 14; j++){
+                    if(array[i].canFormChainWith(array[j])){
+                        counter++;
+                    }
+                }
+            }
+
+            countArray.add(counter+1);
+            i += counter;
+        }  
+
+        return countArray;
     }
 
     /*
