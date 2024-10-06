@@ -8,6 +8,7 @@ public class OkeyGame {
     Tile lastDiscardedTile;
 
     int currentPlayerIndex = 0;
+    int currentIndexOfTilesInTheMiddle = 57;   //To keep track of tiles in the middle
 
     public OkeyGame() {
         players = new Player[4];
@@ -77,21 +78,31 @@ public class OkeyGame {
     }
 
     /*
+     * Burak Yılmaz
      * TODO: get the last discarded tile for the current player
      * (this simulates picking up the tile discarded by the previous player)
      * it should return the toString method of the tile so that we can print what we picked
      */
-    public String getLastDiscardedTile() {
-        return null;
+    public String getLastDiscardedTile() 
+    {
+        String result = String.valueOf(lastDiscardedTile.getColor()) + String.valueOf(lastDiscardedTile.getValue());
+
+        return result;
     }
 
     /*
+     * Burak Yılmaz
      * TODO: get the top tile from tiles array for the current player
      * that tile is no longer in the tiles array (this simulates picking up the top tile)
      * it should return the toString method of the tile so that we can print what we picked
      */
-    public String getTopTile() {
-        return null;
+    public String getTopTile() 
+    {
+        String result = tiles[currentIndexOfTilesInTheMiddle].toString();
+
+        currentIndexOfTilesInTheMiddle++;
+
+        return result;
     }
 
     /* 
@@ -139,11 +150,22 @@ public class OkeyGame {
     }
 
     /*
+     *Burak Yılmaz
      * TODO: check if game still continues, should return true if current player
      * finished the game, use isWinningHand() method of Player to decide
      */
-    public boolean didGameFinish() {
-        return false;
+    public boolean didGameFinish() 
+    {
+        boolean result = false;
+
+        Player currentPlayer = players[currentPlayerIndex];
+
+        if(currentPlayer.isWinningHand() == true)
+        {
+            result = true;
+        }
+
+        return result;
     }
 
     /* 
