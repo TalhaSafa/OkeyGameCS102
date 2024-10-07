@@ -101,6 +101,9 @@ public class ApplicationMain {
                 // computer picks a tile from tile stack or other player's discard
                 game.pickTileForComputer();
 
+                //To see whether it is working or not
+                //game.displayCurrentPlayersTiles();
+
                 gameContinues = !game.didGameFinish();
 
                 if(gameContinues) {

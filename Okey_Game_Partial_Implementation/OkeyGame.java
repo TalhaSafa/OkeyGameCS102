@@ -9,7 +9,7 @@ public class OkeyGame
     Tile lastDiscardedTile;
 
     int currentPlayerIndex = 0;
-    int currentIndexOfTilesInTheMiddle = 57;   //To keep track of tiles in the middle
+    int currentIndexOfTilesInTheMiddle = 57;    //To keep track of tiles in the middle 
 
     public OkeyGame() {
         players = new Player[4];
@@ -39,12 +39,12 @@ public class OkeyGame
     public void distributeTilesToPlayers() {
         int k = 0;
 
-        for(int i = 0; i <= 56;i++){
+        for(int i = 0; i < 57;i++){
             if(i <= 14){
 
                 players[currentPlayerIndex].playerTiles[k] = tiles[i];
                 k++;
-                if(k== 14){
+                if(k== 15){
                     players[currentPlayerIndex].numberOfTiles = k;
                     players[currentPlayerIndex].orderTiles();
                     k = 0;
@@ -55,18 +55,18 @@ public class OkeyGame
 
                 players[currentPlayerIndex].playerTiles[k] = tiles[i];
                 k++;
-                if(k == 13){
+                if(k == 14){
                     players[currentPlayerIndex].numberOfTiles = k;
                     players[currentPlayerIndex].orderTiles();
                     k = 0;
                     currentPlayerIndex++;
                 }
             }
-            else if( i < 28 && i <= 42){
+            else if( i > 28 && i <= 42){
 
                 players[currentPlayerIndex].playerTiles[k] = tiles[i];
                 k++;
-                if(k == 13){
+                if(k == 14){
                     players[currentPlayerIndex].numberOfTiles = k;
                     players[currentPlayerIndex].orderTiles();
                     k = 0;
@@ -77,7 +77,7 @@ public class OkeyGame
                 players[currentPlayerIndex].playerTiles[k] = tiles[i];
                 k++;
 
-                if(k == 13){
+                if(k == 14){
                     players[currentPlayerIndex].numberOfTiles = k;
                     players[currentPlayerIndex].orderTiles();
                     k = 0;
@@ -88,14 +88,15 @@ public class OkeyGame
     }
 
     /*
-     * Burak Yılmaz
+     * Burak Yılmaz    
      * TODO: get the last discarded tile for the current player
      * (this simulates picking up the tile discarded by the previous player)
      * it should return the toString method of the tile so that we can print what we picked
      */
     public String getLastDiscardedTile() 
     {
-        String result = String.valueOf(lastDiscardedTile.getColor()) + String.valueOf(lastDiscardedTile.getValue());
+        String result = String.valueOf(lastDiscardedTile.getValue()) + String.valueOf(lastDiscardedTile.getColor());
+        players[currentPlayerIndex].addTile(lastDiscardedTile);
 
         return result;
     }
@@ -109,7 +110,7 @@ public class OkeyGame
     public String getTopTile() 
     {
         String result = tiles[currentIndexOfTilesInTheMiddle].toString();
-
+        players[currentPlayerIndex].addTile(tiles[currentIndexOfTilesInTheMiddle]);
         currentIndexOfTilesInTheMiddle++;
 
         return result;
@@ -160,7 +161,7 @@ public class OkeyGame
     }
 
     /*
-     *Burak Yılmaz
+     * Burak Yılmaz   
      * TODO: check if game still continues, should return true if current player
      * finished the game, use isWinningHand() method of Player to decide
      * 
@@ -177,6 +178,7 @@ public class OkeyGame
         }
 
         return result;
+
     }
 
     /* 
@@ -211,17 +213,18 @@ public class OkeyGame
 
                 getLastDiscardedTile();
 
-                break;
+                control = false;
             }
             else{
 
                 j++;
+                if(j == 14)
+                {
+                    control = false;
+                    getTopTile();
+
+                }
             }
-        }
-
-        if(j == 14){
-
-            getTopTile();
         }
     }
 
@@ -272,13 +275,16 @@ public class OkeyGame
             for(int i = 0; i < countArray.size(); i++){
                 if(countArray.get(i) == min){
 
-                    System.out.println("The tile " + players[currentPlayerIndex].playerTiles[countForIndex] + "has been discarded.");
+                    System.out.println("The tile " + players[currentPlayerIndex].playerTiles[countForIndex] + " has been discarded.");
                    
                     discardTile(countForIndex);
-                    
-                }
+                    control = false;
+                    break;
 
-                countForIndex += countArray.get(i);
+                }
+                if(i < 15){
+                    countForIndex += countArray.get(i);
+                }
             }
 
         }   
@@ -299,12 +305,20 @@ public class OkeyGame
                         counter++;
                     }
                 }
+
+                if(i== 13 &&array[i].canFormChainWith(array[i+1] )){
+                    counter++;
+                }
+
+                if((i== 14&& counter == 0)){
+                    counter++;
+                }
+
             }
 
             countArray.add(counter+1);
             i += counter;
         }  
-
         return countArray;
     }
 

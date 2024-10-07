@@ -44,6 +44,7 @@ public class Player
         if(numberOfTiles < 15)
         {
             playerTiles[14] = t;
+            numberOfTiles++;
             orderTiles(); 
         }
     }
@@ -83,11 +84,11 @@ public class Player
         
         boolean result = false;
         int chainCounter = 0;
+        int chainMakerCounter = 0;
 
         for(int i = 0 ; i < numberOfTiles - 1; i++)
         {
-            int chainMakerCounter = 0;
-            while(playerTiles[i].compareTo(playerTiles[i+1]) == 0)
+            while(i < numberOfTiles-1 && playerTiles[i].compareTo(playerTiles[i+1]) == 0)
             {
                 i++;
             }
@@ -96,7 +97,7 @@ public class Player
                 if(playerTiles[i].canFormChainWith(playerTiles[i+1]))
                 {
                     chainMakerCounter++;
-                    if(chainMakerCounter == 4)
+                    if(chainMakerCounter == 3)
                     {
                         chainCounter++;
                         chainMakerCounter = 0;
