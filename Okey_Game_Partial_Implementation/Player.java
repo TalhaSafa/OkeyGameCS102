@@ -1,4 +1,5 @@
-public class Player {
+public class Player 
+{
     String playerName;
     Tile[] playerTiles;
     int numberOfTiles;
@@ -67,6 +68,7 @@ public class Player {
                 }
             }
         }
+
     }
 
     /** 
@@ -143,5 +145,5 @@ public class Player {
 
     public String getName() {
         return playerName;
-    }
+    }    
 }

@@ -1,7 +1,8 @@
-import java.util.Random;
 import java.util.ArrayList;
-public class OkeyGame {
+import java.util.Random;
 
+public class OkeyGame 
+{
     Player[] players;
     Tile[] tiles;
 
@@ -38,12 +39,14 @@ public class OkeyGame {
     public void distributeTilesToPlayers() {
         int k = 0;
 
-        for(int i = 1; i <= 56;i++){
+        for(int i = 0; i <= 56;i++){
             if(i <= 14){
 
                 players[currentPlayerIndex].playerTiles[k] = tiles[i];
-
+                k++;
                 if(k== 14){
+                    players[currentPlayerIndex].numberOfTiles = k;
+                    players[currentPlayerIndex].orderTiles();
                     k = 0;
                     currentPlayerIndex++;
                 }
@@ -51,8 +54,10 @@ public class OkeyGame {
             else if( i > 14 && i <= 28){
 
                 players[currentPlayerIndex].playerTiles[k] = tiles[i];
-
+                k++;
                 if(k == 13){
+                    players[currentPlayerIndex].numberOfTiles = k;
+                    players[currentPlayerIndex].orderTiles();
                     k = 0;
                     currentPlayerIndex++;
                 }
@@ -60,16 +65,21 @@ public class OkeyGame {
             else if( i < 28 && i <= 42){
 
                 players[currentPlayerIndex].playerTiles[k] = tiles[i];
-
+                k++;
                 if(k == 13){
+                    players[currentPlayerIndex].numberOfTiles = k;
+                    players[currentPlayerIndex].orderTiles();
                     k = 0;
                     currentPlayerIndex++;
                 }
             }
             else{
                 players[currentPlayerIndex].playerTiles[k] = tiles[i];
+                k++;
 
                 if(k == 13){
+                    players[currentPlayerIndex].numberOfTiles = k;
+                    players[currentPlayerIndex].orderTiles();
                     k = 0;
                     currentPlayerIndex = 0;
                 }
@@ -153,6 +163,7 @@ public class OkeyGame {
      *Burak Yılmaz
      * TODO: check if game still continues, should return true if current player
      * finished the game, use isWinningHand() method of Player to decide
+     * 
      */
     public boolean didGameFinish() 
     {
@@ -333,6 +344,5 @@ public class OkeyGame {
         if(index >= 0 && index <= 3) {
             players[index] = new Player(name);
         }
-    }
-
+    }    
 }

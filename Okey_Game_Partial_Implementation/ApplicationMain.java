@@ -22,7 +22,7 @@ public class ApplicationMain {
         System.out.print("Play in developer's mode with other player's tiles visible? (Y/N): ");
         char devMode = sc.next().charAt(0);
         boolean devModeOn = devMode == 'Y';
-        
+                
         boolean firstTurn = true;
         boolean gameContinues = true;
         int playerChoice = -1;
@@ -114,5 +114,7 @@ public class ApplicationMain {
                 }
             }
         }
+
+        sc.close();
     }
 }
