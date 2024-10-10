@@ -118,9 +118,9 @@ public class OkeyGame
         return result;
     }
 
-    /* 
-     * Cagan Aksoy
+    /**
      * TODO: should randomly shuffle the tiles array before game starts
+     * @author Cagan Aksoy
      */
     public void shuffleTiles() {
 
@@ -141,9 +141,12 @@ public class OkeyGame
 
     }
 
-    /*  
-     *  Cagan Aksoy
+    /**
+     *  
      *  Creates an array with random sort with the length of the number we enter
+     *  @author Cagan Aksoy
+     *  @param n length of the wanted array
+     *  @return int[] a random integer array with the wanted length
      */
     public int[] arrayCreatorRandom(int n){
         ArrayList<Integer> usedNumbers = new ArrayList<>(); 
@@ -328,11 +331,12 @@ public class OkeyGame
         return countArray;
     }
 
-    /*
-     * Cagan Aksoy
+    /**
      * TODO: discards the current player's tile at given index
      * this should set lastDiscardedTile variable and remove that tile from
      * that player's tiles
+     * @author Cagan Aksoy
+     * @param tileIndex is the index of tile we want to discard
      */
     public void discardTile(int tileIndex) {
         lastDiscardedTile = players[currentPlayerIndex].getAndRemoveTile(tileIndex);
