@@ -30,11 +30,10 @@ public class OkeyGame
         }
     }
 
-    /* Eren sucuoğlu, değiştirebilirsiniz.
-     * TODO: distributes the starting tiles to the players
-     * player at index 0 gets 15 tiles and starts first
-     * other players get 14 tiles
-     * this method assumes the tiles are already shuffled
+    /**
+     * This method help the game for the distrubution of tiles to players.
+     * It goes over from the shuffled tiles and distrubutes them to players in wanted amount.
+     * @author Eren Sucuoğlu
      */
     public void distributeTilesToPlayers() {
         int k = 0;
@@ -42,11 +41,11 @@ public class OkeyGame
         for(int i = 0; i < 57;i++){
             if(i <= 14){
 
-                players[currentPlayerIndex].playerTiles[k] = tiles[i];
+                players[currentPlayerIndex].playerTiles[k] = tiles[i]; // First players gets 15.
                 k++;
                 if(k== 15){
-                    players[currentPlayerIndex].numberOfTiles = k;
-                    players[currentPlayerIndex].orderTiles();
+                    players[currentPlayerIndex].numberOfTiles = k; //Also uptades number of files each time 
+                    players[currentPlayerIndex].orderTiles();   // Orders the tiles when the distrubution is finished.
                     k = 0;
                     currentPlayerIndex++;
                 }
@@ -185,13 +184,12 @@ public class OkeyGame
 
     }
 
-    /* 
-     * Eren Sucuoğlu
-     * TODO: Pick a tile for the current computer player using one of the following:
-     * - picking from the tiles array using getTopTile()
-     * - picking from the lastDiscardedTile using getLastDiscardedTile()
-     * You should consider if the discarded tile is useful for the computer in
-     * the current status. Print whether computer picks from tiles or discarded ones.
+    
+    /**
+     * This method picks a tile for computer by first checking the discarded tile.
+     * If the discarded tile can make any chain with the present tiles, it picks up the dicarded.
+     * If not, it gets from the top tile.
+     * @author Eren Sucuoğlu
      */
     public void pickTileForComputer() {
 
@@ -232,12 +230,10 @@ public class OkeyGame
         }
     }
 
-    /*
-     * TODO: Current computer player will discard the least useful tile.
-     * this method should print what tile is discarded since it should be
-     * known by other players. You may first discard duplicates and then
-     * the single tiles and tiles that contribute to the smallest chains.
-     * Eren Sucuoğlu
+    /**
+     * A method which helps computer to discard the least useful tile. Depending on the chains it has. Smallest chains will be discarded.
+     * After discarding, it prints out what the computer has discarded.
+     * @author Eren Sucuoğlu
      */
     public void discardTileForComputer() {
         boolean control = true;
@@ -247,6 +243,7 @@ public class OkeyGame
 
             int counter = -1;
 
+            // If the deck contain a duplicate, it removes it first.
             for(int j = 0; j < 15;j++){
 
                 if(players[currentPlayerIndex].playerTiles[i].compareTo(players[currentPlayerIndex].playerTiles[j]) == 0){
@@ -264,6 +261,7 @@ public class OkeyGame
             }
         } 
 
+        //If the deck doesnt contain a duplicate, it one from one of the smallest chains.
         while(control){
 
             ArrayList <Integer> countArray = countOfChain(players[currentPlayerIndex].playerTiles);
@@ -279,7 +277,7 @@ public class OkeyGame
             for(int i = 0; i < countArray.size(); i++){
                 if(countArray.get(i) == min){
 
-                    System.out.println("The tile " + players[currentPlayerIndex].playerTiles[countForIndex] + " has been discarded.");
+                    System.out.println("The tile " + players[currentPlayerIndex].playerTiles[countForIndex] + " has been discarded."); // Printing which has been discarded.
                    
                     discardTile(countForIndex);
                     control = false;
@@ -293,8 +291,12 @@ public class OkeyGame
 
         }   
     }
-
-    //Only made for easy application of discardTileForComputer,Eren Sucuoğlu.
+    /**
+     *  Method only made for better implementation of DiscardTileForComputer.
+     * @param array, takes an tile array , counts it's chains: If you have a row 3K 3B 3Y 3R 5Y 5B 6K 6Y, it will turn it to 3,2,1.
+     * @return an array which has the count of chains.
+     * @author Eren Sucuoğlu
+    */
     public ArrayList<Integer> countOfChain(Tile [] array){
         
         ArrayList<Integer> countArray = new ArrayList<>();
