@@ -87,12 +87,14 @@ public class OkeyGame
         }
     }
 
-    /*
-     * Burak Yılmaz    
-     * TODO: get the last discarded tile for the current player
-     * (this simulates picking up the tile discarded by the previous player)
-     * it should return the toString method of the tile so that we can print what we picked
-     */
+
+     /**
+      * TODO: get the last discarded tile for the current player
+      * (this simulates picking up the tile discarded by the previous player)
+      * it should return the toString method of the tile so that we can print what we picked
+      * @return string version of last discarded tile
+        @author Burak Yılmaz
+      */
     public String getLastDiscardedTile() 
     {
         String result = String.valueOf(lastDiscardedTile.getValue()) + String.valueOf(lastDiscardedTile.getColor());
@@ -101,11 +103,12 @@ public class OkeyGame
         return result;
     }
 
-    /*
-     * Burak Yılmaz
+    /**
      * TODO: get the top tile from tiles array for the current player
      * that tile is no longer in the tiles array (this simulates picking up the top tile)
      * it should return the toString method of the tile so that we can print what we picked
+     * @return string version of the top tile
+     * @author Burak Yılmaz
      */
     public String getTopTile() 
     {
@@ -160,11 +163,12 @@ public class OkeyGame
             return randomIndexList;
     }
 
-    /*
-     * Burak Yılmaz   
+
+    /**
      * TODO: check if game still continues, should return true if current player
      * finished the game, use isWinningHand() method of Player to decide
-     * 
+     * @return true if someone has won otherwise false
+     * @author Burak Yılmaz
      */
     public boolean didGameFinish() 
     {
